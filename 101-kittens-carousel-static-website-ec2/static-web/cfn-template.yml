@@ -1,6 +1,6 @@
-cfn-template.yml
+
 ---
-AWSTemplateFormatVersion: ""2010-09-09""
+AWSTemplateFormatVersion: "2010-09-09"
 
 Description: >
   This template creates Kittens Carousel App on EC@ instance
