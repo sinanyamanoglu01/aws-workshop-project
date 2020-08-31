@@ -1,1 +1,1 @@
-# aws-workshop-project
+# aws-workshop-projects
