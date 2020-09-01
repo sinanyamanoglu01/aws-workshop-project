@@ -24,7 +24,7 @@ Resources:
     Properties: 
       ImageId: ami-02354e95b39ca8dec
       InstanceType: t2.micro
-      KeyName: sinan.pem
+      KeyName: sinan
       SecurityGroupIds: 
         - !Ref WebServerSecurityGroup
       Tags: 
