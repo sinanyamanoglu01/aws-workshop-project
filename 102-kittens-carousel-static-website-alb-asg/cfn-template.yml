@@ -40,12 +40,12 @@ Resources:
       SecurityGroups:
         - !GetAtt ALBSecurityGroup.GroupId
       Subnets:
-        - subnet-c41ba589
-        - subnet-077c9758
-        - subnet-3ccd235a
-        - subnet-ed49bccc
-        - subnet-8d8dbfb3
-        - subnet-3246e63c
+        - subnet-08690545
+        - subnet-35b66f6a
+        - subnet-58f92279
+        - subnet-5929c968
+        - subnet-b42af7d2
+        - subnet-ffcd5bf1
       Type: application
   ALBListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
@@ -62,7 +62,7 @@ Resources:
       LaunchTemplateData:
         ImageId: ami-02354e95b39ca8dec
         InstanceType: t2.micro
-        KeyName: call.training
+        KeyName: sinan
         SecurityGroupIds:
           - !GetAtt WebServersSecGroup.GroupId
         TagSpecifications:
