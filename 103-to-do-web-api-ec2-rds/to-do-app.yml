@@ -62,7 +62,7 @@ Resources:
         - !Ref MyDBSecurityGroup
       Engine: MySQL
       EngineVersion: 8.0.19
-      MasterUserPassword: Callahan_1
+      MasterUserPassword: password
       MasterUsername: admin
       MultiAZ: false
       Port: 3306
