@@ -1,22 +1,19 @@
 # Import Flask modules
 from flask import Flask, jsonify, abort, request, make_response
-from flaskext.mysql import MySQL
+from flask import MySQL
 
 # Create an object named app
 app = Flask(__name__)
-
 # Get the db url from the file
 db_endpoint = open("/home/ec2-user/dbserver.endpoint", 'r', encoding='UTF-8') 
 
 # Configure mysql database
 app.config['MYSQL_DATABASE_HOST'] = db_endpoint.readline().strip()
 app.config['MYSQL_DATABASE_USER'] = 'admin'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'Callahan_1'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'password'
 app.config['MYSQL_DATABASE_DB'] = 'todo_db'
 app.config['MYSQL_DATABASE_PORT'] = 3306
-
 db_endpoint.close()
-
 mysql = MySQL()
 mysql.init_app(app)
 connection = mysql.connect()
@@ -55,7 +52,6 @@ def get_all_tasks():
     query = """
     SELECT * FROM todos;
     """
-    
     cursor.execute(query)
     result = cursor.fetchall()
     tasks =[{'task_id':row[0], 'title':row[1], 'description':row[2], 'is_done': bool(row[3])} for row in result]
@@ -84,13 +80,11 @@ def insert_task(title, description):
     VALUES ('{title}', '{description}');
     """
     cursor.execute(insert)
-
     query = f"""
     SELECT * FROM todos WHERE task_id={cursor.lastrowid};
     """
     cursor.execute(query)
     row = cursor.fetchone()
-
     task = None
     if row is not None:
         task = {'task_id':row[0], 'title':row[1], 'description':row[2], 'is_done': bool(row[3])}
@@ -106,7 +100,6 @@ def change_task(task):
     WHERE task_id= {task['task_id']};
     """
     cursor.execute(update)
-
     query = f"""
     SELECT * FROM todos WHERE task_id={task['task_id']};
     """
@@ -116,7 +109,7 @@ def change_task(task):
     if row is not None:
         task = {'task_id':row[0], 'title':row[1], 'description':row[2], 'is_done': bool(row[3])}
     return task
-
+    
 # Write a function named `remove_task` which removes task from the todos table in the db,
 # and returns True if successfully deleted or False.
 def remove_task(task):
@@ -125,14 +118,12 @@ def remove_task(task):
     WHERE task_id= {task['task_id']};
     """
     cursor.execute(delete)
-
     query = f"""
     SELECT * FROM todos WHERE task_id={task['task_id']};
     """
     cursor.execute(query)
     row = cursor.fetchone()
     return True if row is None else False
-
 
 # Write a function named `home` which returns 'Welcome to the Callahan's To-Do API Service',
 # and assign to the static route of ('/')
@@ -195,7 +186,7 @@ def not_found(error):
 @app.errorhandler(400)
 def bad_request(error):
     return make_response(jsonify({'error': 'Bad request'}), 400)
-
+    
 # Add a statement to run the Flask application which can be reached from any host on port 80.
 if __name__== '__main__':
     init_todo_db()
