@@ -7,6 +7,8 @@ Parameters:
   EC2ImageId:
     Description: Select image id
     Type: AWS::EC2::Image::Id
+    AllowedValues:
+      - ""
 Resources:
   WebServerSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
